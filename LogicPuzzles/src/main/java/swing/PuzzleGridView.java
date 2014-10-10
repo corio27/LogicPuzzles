@@ -30,7 +30,11 @@ extends JComponent
          for (int col=0; col<jButtons[row].length; col++){
         	 JButton jButton ;
         	 String dim;
-            if (row==8) {
+        	 if (row==8 && col==8)
+             {
+            	 jButton  = new JButton("");
+            	 jButton.setEnabled(false);
+             }else  if (row==8) {
             	if(col<4)
             	{
             		 dim="1."+col;
@@ -58,10 +62,6 @@ extends JComponent
             	 
             	 jButton.setEnabled(false);
              }else if (row<4 && col<4)
-             {
-            	 jButton  = new JButton("");
-            	 jButton.setEnabled(false);
-             }else if (row==8 && col==8)
              {
             	 jButton  = new JButton("");
             	 jButton.setEnabled(false);
