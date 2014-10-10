@@ -1,23 +1,7 @@
-/*
- * Copyright 2011 JBoss Inc
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package puzzle;
 
-import puzzle.swing.AbstractPuzzleGridModel;
-import puzzle.swing.PuzzleGridEvent;
-import puzzle.swing.PuzzleGridModel;
+
+package puzzle;
+import swing.PuzzleGridModel;
 import org.kie.api.event.rule.ObjectDeletedEvent;
 import org.kie.api.event.rule.ObjectInsertedEvent;
 import org.kie.api.event.rule.ObjectUpdatedEvent;
@@ -26,21 +10,15 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 
-import java.util.Formatter;
-import java.util.HashSet;
-import java.util.Set;
 
-/**
- * An object of this class solves Puzzle problems.
- */
-public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
+
+public class Puzzle  implements PuzzleGridModel {
 
     public static Puzzle puzzle;
     
     public  Cell[][]    cells;
-    private CellSqr[][] sqrs = new CellSqr[][]{ new CellSqr[3], new CellSqr[3], new CellSqr[3] };
-    private CellRow[]   rows = new CellRow[9];
-    private CellCol[]   cols = new CellCol[9];
+    private CellSqr[][] sqrs = new CellSqr[][]{ new CellSqr[4], new CellSqr[4], new CellSqr[4] };
+   
     
     private KieContainer kc;
     private KieSession session;
@@ -59,20 +37,13 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
         puzzle = this;
     }
     
-    /*
-     * (non-Javadoc)
-     * @see org.kie.examples.sudoku.swing.SudokuGridModel#getCellValue(int, int)
-     */
-    public String getCellValue(int iRow, int iCol) {
-        if (cells == null) return " ";
-        return cells[iRow][iCol].valueAsString();
-    }
+   
     
     /**
      * Nice printout of the grid.
      */
     public void dumpGrid() {
-        Formatter fmt = new Formatter(System.out);
+        /*Formatter fmt = new Formatter(System.out);
         fmt.format("       ");
         for (int iCol = 0; iCol < 9; iCol++) {
             fmt.format("Col: %d     ", iCol);
@@ -85,7 +56,7 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
                     fmt.format(" --- %d --- ", cells[iRow][iCol].getValue());
                 } else {
                     StringBuilder sb = new StringBuilder();
-                    Set<Integer> perms = cells[iRow][iCol].getFree();
+                    Set<String> perms = cells[iRow][iCol].getFree();
                     for (int i = 1; i <= 9; i++) {
                         if (perms.contains(i)) {
                             sb.append(i);
@@ -98,17 +69,17 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
             }
             System.out.println();
         }
-        fmt.close();
+        fmt.close();*/
     }
     
     /**
      * Checks that everything is still according to the sudoku rules.
      */
     public void consistencyCheck() {
-        for (int iRow = 0; iRow < 9; iRow++) {
+        /*for (int iRow = 0; iRow < 9; iRow++) {
             for (int iCol = 0; iCol < 9; iCol++) {
                 Cell cell = cells[iRow][iCol];
-                Integer value = cell.getValue();
+                String value = cell.getValue();
                 if (value != null) {
                     if (! cell.getFree().isEmpty()) {
                         throw new IllegalStateException("free not empty");
@@ -129,61 +100,58 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
         }
         
         for (int i = 0; i < rows.length; i++) {
-            Set<Integer> aSet = new HashSet<Integer>();
+            Set<String> aSet = new HashSet<String>();
             for (int j = 0; j < rows[i].getCells().size(); j++) {
                 Cell cell = rows[i].getCells().get(j);
-                Integer value = cell.getValue();
+                String value = cell.getValue();
                 if (value != null) {
                     aSet.add(value);
                 } else {
                     aSet.addAll(cell.getFree());
                 }
             }
-            if (! aSet.equals(CellGroup.ALL_NINE)) {
+            if (! aSet.equals(CellGroup.ALL_FOUR)) {
                 throw new IllegalStateException("deficit in row");
             }
         }
         
         for (int i = 0; i < cols.length; i++) {
-            Set<Integer> aSet = new HashSet<Integer>();
+            Set<String> aSet = new HashSet<String>();
             for (int j = 0; j < cols[i].getCells().size(); j++) {
                 Cell cell = cols[i].getCells().get(j);
-                Integer value = cell.getValue();
+                String value = cell.getValue();
                 if (value != null) {
                     aSet.add(value);
                 } else {
                     aSet.addAll(cell.getFree());
                 }
             }
-            if (! aSet.equals(CellGroup.ALL_NINE)) {
+            if (! aSet.equals(CellGroup.ALL_FOUR)) {
                 throw new IllegalStateException("deficit in column");
             }
         }
 
         for (int ir = 0; ir < sqrs.length; ir++) {
             for (int ic = 0; ic < sqrs[ir] .length; ic++) {
-                Set<Integer> aSet = new HashSet<Integer>();
+                Set<String> aSet = new HashSet<String>();
                 for (int j = 0; j < sqrs[ir][ic].getCells().size(); j++) {
                     Cell cell = sqrs[ir][ic].getCells().get(j);
-                    Integer value = cell.getValue();
+                    String value = cell.getValue();
                     if (value != null) {
                         aSet.add(value);
                     } else {
                         aSet.addAll(cell.getFree());
                     }
                 }
-                if (! aSet.equals(CellGroup.ALL_NINE)) {
+                if (! aSet.equals(CellGroup.ALL_FOUR)) {
                     throw new IllegalStateException("deficit in square");
                 }
             }
         }
-        System.out.println("+++ check OK +++");
+        System.out.println("+++ check OK +++");*/
     }
     
-    /*
-     * (non-Javadoc)
-     * @see org.kie.examples.sudoku.swing.SudokuGridModel#solve()
-     */
+   
     public void solve() {
         if (this.isSolved()) return;
         explain = false;
@@ -197,10 +165,7 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
 //        dumpGrid();
     }
     
-    /*
-     * (non-Javadoc)
-     * @see org.kie.examples.puzzle.swing.PuzzleGridModel#step()
-     */
+   
     public void step() {
         if (this.isSolved()) return;
         explain = true;
@@ -218,9 +183,9 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
     }
 
     public boolean isSolved() {
-        for (int iRow = 0; iRow < 9; iRow++) {
-            for (int iCol = 0; iCol < 9; iCol++) {
-                if (cells[iRow][iCol].getValue() == null) return false;
+        for (int iRow = 0; iRow < 8; iRow++) {
+            for (int iCol = 0; iCol < 8; iCol++) {
+                if (cells[iRow][iCol].getCellState() == CellState.VOID) return false;
             }
         }
         return true;
@@ -231,7 +196,7 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
     }
     
     private void create() {
-        for (int i = 0; i < 9; i++) {
+     /*   for (int i = 0; i < 9; i++) {
             session.insert(Integer.valueOf(i+1));
             rows[i] = new CellRow(i);
             cols[i] = new CellCol(i);
@@ -262,15 +227,12 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
             session.insert(rows[iRow]);
             session.insert(cols[iRow]);
             session.insert(sqrs[iRow/3][iRow%3]);
-        }
+        }*/
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.kie.examples.sudoku.swing.SudokuGridModel#setCellValues(java.lang.Integer[][])
-     */
-    public void setCellValues(Integer[][] cellValues) {
-        if (session != null) {
+   
+    public void setCellValues(String[][] cellValues) {
+       /* if (session != null) {
             session.removeEventListener(workingMemoryListener);
             session.dispose();
             steppingFactHandle = null;
@@ -280,14 +242,14 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
         session.setGlobal("explain", explain);
         session.addEventListener(workingMemoryListener);
 
-        Setting s000 = new Setting(0, 0, 0);
+        Setting s000 = new Setting(0, 0, null);
         FactHandle fh000 = this.session.insert(s000);
         this.create();
 
         int initial = 0;
         for (int iRow = 0; iRow < 9; iRow++) {
             for (int iCol = 0; iCol < 9; iCol++) {
-                Integer value = cellValues[iRow][iCol];
+                String value = cellValues[iRow][iCol];
                 if (value != null) {
                     session.insert(new Setting(iRow, iCol, value));
                     initial++;
@@ -297,30 +259,28 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
         this.counter = new Counter(initial);
         this.session.insert(counter);
         this.session.delete(fh000);
-        this.session.fireAllRules();
+        this.session.fireAllRules();*/
     }
     
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
+  
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+       /* StringBuilder sb = new StringBuilder();
 
         sb.append("Puzzle:").append('\n');
         for (int iRow = 0; iRow < 9;  iRow++) {
             sb.append("  ").append(rows[iRow].toString()).append('\n');
         }
         
-        return sb.toString();
+        return sb.toString();*/
+    	return "";
     }
     
     class PuzzleWorkingMemoryListener implements RuleRuntimeEventListener {
 
         public void objectInserted(ObjectInsertedEvent ev) {
             if (ev.getObject() instanceof Counter) {
-                fireRestartEvent(null);
+    //            fireRestartEvent(null);
             }
         }
 
@@ -330,11 +290,11 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
         public void objectUpdated(ObjectUpdatedEvent ev) {
             if (ev.getObject() instanceof Cell) {
                 Cell cell = (Cell) ev.getObject();
-                if (cell.getValue() != null) {
-                    fireCellUpdatedEvent(new PuzzleGridEvent(this,
-                            cell.getRowNo(),
-                            cell.getColNo(),
-                            cell.getValue()));
+                if (cell.getCellState()!= CellState.VOID) {
+    //                fireCellUpdatedEvent(new PuzzleGridEvent(this,
+                	//                        cell.getRowNo(),
+                	//        cell.getColNo(),
+                	//       cell.getValue()));
                 }
             }
         }
@@ -344,4 +304,14 @@ public class Puzzle extends AbstractPuzzleGridModel implements PuzzleGridModel {
         session.getAgenda().getAgendaGroup( "validate" ).setFocus();
         session.fireUntilHalt();
     }
+
+	public String getCellState(int iRow, int iCol) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setCellState(int iRow, int iCol) {
+		// TODO Auto-generated method stub
+		
+	}
 }

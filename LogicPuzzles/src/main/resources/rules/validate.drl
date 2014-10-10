@@ -29,12 +29,12 @@ then
     System.out.println( "cell " + $c.toString() + " has a duplicate in col " + $cc.getNumber() );
 end
 
-rule "duplicate in cell sqr"
-when
-    $c: Cell( $v: value != null ) 
-    $cs: CellSqr( cells contains $c )
-    exists Cell( this != $c, value == $v, cellSqr == $cs ) 
-then
-    System.out.println( "cell " + $c.toString() + " has duplicate in its square of nine." );
-end
+//rule "duplicate in cell sqr"
+//when
+//    $c: Cell( $v: value != null ) 
+//    $cs: CellSqr( cells contains $c )
+//    exists Cell( this != $c, value == $v, cellSqr == $cs ) 
+//then
+//   System.out.println( "cell " + $c.toString() + " has duplicate in its square of nine." );
+//end
 

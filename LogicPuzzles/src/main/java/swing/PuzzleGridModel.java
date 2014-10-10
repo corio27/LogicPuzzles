@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package puzzle.swing;
+package swing;
 
 /**
  * An interface representing a 9x9 Puzzle Grid of Cells.
  */
 public interface PuzzleGridModel {
+  
+
+	
    /**
     * The number of rows in the Grid, i.e. the height
     */
@@ -32,22 +35,22 @@ public interface PuzzleGridModel {
    /**
     * The number of colums that make up a zone within the Grid
     */
-   public static int INNER_GRID_WIDTH = 3;   
+   public static int INNER_GRID_WIDTH = 4;   
    
    /**
     * The number of rows that make up a zone within the Grid
     */
-   public static int INNER_GRID_HEIGHT = 3;
+   public static int INNER_GRID_HEIGHT = 4;
 
-   public void setCellValues(Integer[][] cellValues);
-      
-   public String getCellValue( int iRow, int iCol );
+   
+   public void setCellState( int iRow, int iCol );  
+   public String getCellState( int iRow, int iCol );
    
    public void solve();
    
    public void step();
+
+String toString();
       
-   public void addPuzzleGridListener(PuzzleGridListener l);   
    
-   public void removePuzzleGridListener(PuzzleGridListener l);
 }
